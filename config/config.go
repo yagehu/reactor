@@ -14,6 +14,11 @@ type Config struct {
 	Context struct {
 		RuntimeEnvironment RuntimeEnvironment `json:"-"`
 	} `json:"-"`
+
+	HTTP struct {
+		Host string `json:"host"`
+		Port string `json:"port"`
+	} `json:"http"`
 }
 
 type RuntimeEnvironment int
@@ -33,6 +38,10 @@ func New() (Config, error) {
 		runtimeEnvironment RuntimeEnvironment
 		configDir          = os.Getenv(_envKeyPrefix + _envKeyConfigDir)
 	)
+
+	if configDir == "" {
+		configDir = "config"
+	}
 
 	switch os.Getenv(_envKeyPrefix + _envKeyRuntimeEnvironment) {
 	case "production":
