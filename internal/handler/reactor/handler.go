@@ -6,6 +6,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"go.uber.org/fx"
+
+	"github.com/yagehu/reactor/internal/controller/reactor"
 )
 
 type Handler interface {
@@ -15,12 +17,15 @@ type Handler interface {
 type Params struct {
 	fx.In
 
-	Lifecycle fx.Lifecycle
-	Router    *mux.Router
+	Lifecycle         fx.Lifecycle
+	Router            *mux.Router
+	ReactorController reactor.Controller
 }
 
 func Register(p Params) {
-	h := handler{}
+	h := handler{
+		reactorController: p.ReactorController,
+	}
 
 	p.Lifecycle.Append(fx.Hook{
 		OnStart: func(_ context.Context) error {
@@ -33,4 +38,5 @@ func Register(p Params) {
 }
 
 type handler struct {
+	reactorController reactor.Controller
 }
