@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
+	_ "github.com/lib/pq"
 	"go.uber.org/fx"
 
 	"github.com/yagehu/reactor/config"
