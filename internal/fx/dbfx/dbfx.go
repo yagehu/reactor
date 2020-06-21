@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
+	// Database driver for Postgres.
 	_ "github.com/lib/pq"
 	"go.uber.org/fx"
 
