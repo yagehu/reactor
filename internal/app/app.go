@@ -10,6 +10,7 @@ import (
 	"github.com/yagehu/reactor/internal/fx/middlewarefx"
 	"github.com/yagehu/reactor/internal/fx/zapfx"
 	"github.com/yagehu/reactor/internal/handler"
+	"github.com/yagehu/reactor/internal/repository"
 )
 
 func New() fx.Option {
@@ -17,6 +18,7 @@ func New() fx.Option {
 		config.Module,
 		controller.Module,
 		handler.Module,
+		repository.Module,
 
 		dbfx.Module,
 		httpfx.Module,
