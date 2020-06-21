@@ -1,8 +1,13 @@
 package reactor
 
-import "context"
+import (
+	"context"
+
+	"github.com/yagehu/reactor/internal/entity"
+)
 
 type WatchEventParams struct {
+	Services []entity.Service
 }
 
 type WatchEventResult struct {

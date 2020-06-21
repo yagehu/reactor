@@ -35,7 +35,9 @@ func (h *handler) WatchEvent(w http.ResponseWriter, r *http.Request) {
 
 	_, err := h.reactorController.WatchEvent(
 		r.Context(),
-		&reactorcontroller.WatchEventParams{},
+		&reactorcontroller.WatchEventParams{
+			Services: services,
+		},
 	)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
