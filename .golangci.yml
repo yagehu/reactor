@@ -6,7 +6,6 @@ linters:
     - golint
     - govet
     - megacheck
-    - prealloc
     - rowserrcheck
     - unparam
     - wsl
