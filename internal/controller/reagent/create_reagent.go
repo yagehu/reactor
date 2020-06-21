@@ -2,7 +2,6 @@ package reagent
 
 import (
 	"context"
-	"time"
 
 	"github.com/gofrs/uuid"
 
@@ -30,7 +29,7 @@ func (c *controller) CreateReagent(
 		return nil, errs.E(op, err)
 	}
 
-	reagent := entity.NewReagent(id, p.GUID, time.Now())
+	reagent := entity.NewReagent(id, p.GUID, c.nowFunc())
 
 	_, err = c.reagentRepository.CreateReagent(
 		ctx,

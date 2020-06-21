@@ -8,6 +8,7 @@ import (
 	"github.com/yagehu/reactor/internal/fx/dbfx"
 	"github.com/yagehu/reactor/internal/fx/httpfx"
 	"github.com/yagehu/reactor/internal/fx/middlewarefx"
+	"github.com/yagehu/reactor/internal/fx/nowfx"
 	"github.com/yagehu/reactor/internal/fx/uuidfx"
 	"github.com/yagehu/reactor/internal/fx/zapfx"
 	"github.com/yagehu/reactor/internal/handler"
@@ -24,6 +25,7 @@ func New() fx.Option {
 		dbfx.Module,
 		httpfx.Module,
 		middlewarefx.Module,
+		nowfx.Module,
 		uuidfx.Module,
 		zapfx.Module,
 	)
