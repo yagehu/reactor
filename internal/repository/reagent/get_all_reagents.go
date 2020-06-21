@@ -7,18 +7,18 @@ import (
 	"github.com/yagehu/reactor/internal/model"
 )
 
-type GetAllActiveReagentsParams struct {
+type GetAllReagentsParams struct {
 }
 
-type GetAllActiveReagentsResult struct {
+type GetAllReagentsResult struct {
 	Records []model.Reagent
 }
 
-func (r *repository) GetAllActiveReagents(
-	ctx context.Context, p *GetAllActiveReagentsParams,
-) (*GetAllActiveReagentsResult, error) {
+func (r *repository) GetAllReagents(
+	ctx context.Context, p *GetAllReagentsParams,
+) (*GetAllReagentsResult, error) {
 	var (
-		op      errs.Op = "repository/reagent.GetAllActiveReagents"
+		op      errs.Op = "repository/reagent.GetAllReagents"
 		records []model.Reagent
 	)
 
@@ -47,7 +47,7 @@ WHERE deleted_at IS NULL
 		records = append(records, record)
 	}
 
-	return &GetAllActiveReagentsResult{
+	return &GetAllReagentsResult{
 		Records: records,
 	}, nil
 }

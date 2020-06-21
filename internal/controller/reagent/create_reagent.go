@@ -29,7 +29,7 @@ func (c *controller) CreateReagent(
 		return nil, errs.E(op, err)
 	}
 
-	reagent := entity.NewReagent(id, p.GUID, c.nowFunc())
+	reagent := entity.NewReagent(id, p.GUID, c.nowFunc(), nil)
 
 	_, err = c.reagentRepository.CreateReagent(
 		ctx,

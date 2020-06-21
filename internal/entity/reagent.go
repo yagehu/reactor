@@ -13,11 +13,13 @@ type Reagent struct {
 	DeletedAt *time.Time
 }
 
-func NewReagent(id, guid uuid.UUID, createdAt time.Time) Reagent {
+func NewReagent(
+	id, guid uuid.UUID, createdAt time.Time, deletedAt *time.Time,
+) Reagent {
 	return Reagent{
 		ID:        id,
 		GUID:      guid,
 		CreatedAt: createdAt,
-		DeletedAt: nil,
+		DeletedAt: deletedAt,
 	}
 }
