@@ -12,6 +12,7 @@ import (
 	"github.com/yagehu/reactor/internal/fx/nowfx"
 	"github.com/yagehu/reactor/internal/fx/uuidfx"
 	"github.com/yagehu/reactor/internal/fx/zapfx"
+	"github.com/yagehu/reactor/internal/gateway"
 	"github.com/yagehu/reactor/internal/handler"
 	"github.com/yagehu/reactor/internal/repository"
 )
@@ -20,6 +21,7 @@ func New() fx.Option {
 	return fx.Options(
 		config.Module,
 		controller.Module,
+		gateway.Module,
 		handler.Module,
 		repository.Module,
 
