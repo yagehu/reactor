@@ -19,7 +19,12 @@ import (
 
 func New() fx.Option {
 	return fx.Options(
+		// Config module providing the main config struct of the service.
 		config.Module,
+
+		/***********************************************************************
+		 * MVCS layers.
+		 **********************************************************************/
 		controller.Module,
 		gateway.Module,
 		handler.Module,
