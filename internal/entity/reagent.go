@@ -1,23 +1,23 @@
-package model
+package entity
 
 import (
 	"time"
+
+	"github.com/gofrs/uuid"
 )
 
 type Reagent struct {
-	ID        string
-	GUID      string
+	ID        uuid.UUID
+	GUID      uuid.UUID
 	CreatedAt time.Time
 	DeletedAt *time.Time
 }
 
-func NewReagent(
-	id string, guid string, createdAt time.Time, deletedAt *time.Time,
-) Reagent {
+func NewReagent(id, guid uuid.UUID, createdAt time.Time) Reagent {
 	return Reagent{
 		ID:        id,
 		GUID:      guid,
 		CreatedAt: createdAt,
-		DeletedAt: deletedAt,
+		DeletedAt: nil,
 	}
 }
