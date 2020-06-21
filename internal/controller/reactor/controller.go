@@ -1,10 +1,13 @@
 package reactor
 
 import (
+	"context"
+
 	"go.uber.org/fx"
 )
 
 type Controller interface {
+	WatchEvent(context.Context, *WatchEventParams) (*WatchEventResult, error)
 }
 
 type Params struct {

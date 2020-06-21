@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	reactorcontroller "github.com/yagehu/reactor/internal/controller/reactor"
 	"github.com/yagehu/reactor/internal/entity"
 )
 
@@ -30,6 +31,15 @@ func (h *handler) WatchEvent(w http.ResponseWriter, r *http.Request) {
 			name,
 			tagsMap,
 		))
+	}
+
+	_, err := h.reactorController.WatchEvent(
+		r.Context(),
+		&reactorcontroller.WatchEventParams{},
+	)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	w.WriteHeader(http.StatusOK)
