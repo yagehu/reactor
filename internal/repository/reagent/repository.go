@@ -11,6 +11,9 @@ type Repository interface {
 	CreateReagent(
 		context.Context, *CreateReagentParams,
 	) (*CreateReagentResult, error)
+	GetAllActiveReagents(
+		context.Context, *GetAllActiveReagentsParams,
+	) (*GetAllActiveReagentsResult, error)
 }
 
 type Params struct {
