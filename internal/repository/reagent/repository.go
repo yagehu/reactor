@@ -12,9 +12,15 @@ type Repository interface {
 	CreateReagent(
 		context.Context, *CreateReagentParams,
 	) (*CreateReagentResult, error)
+	DeleteReagent(
+		context.Context, *DeleteReagentParams,
+	) (*DeleteReagentResult, error)
 	GetAllReagents(
 		context.Context, *GetAllReagentsParams,
 	) (*GetAllReagentsResult, error)
+	GetReagentByGUID(
+		context.Context, *GetReagentByGUIDParams,
+	) (*GetReagentByGUIDResult, error)
 }
 
 type Params struct {

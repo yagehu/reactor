@@ -12,21 +12,32 @@ var Module = fx.Provide(New)
 
 type Config struct {
 	Context struct {
-		RuntimeEnvironment RuntimeEnvironment `json:"-"`
-	} `json:"-"`
+		RuntimeEnvironment RuntimeEnvironment `yaml:"-"`
+	} `yaml:"-"`
 
 	HTTP struct {
-		Host string `json:"host"`
-		Port string `json:"port"`
-	} `json:"http"`
+		Host string `yaml:"host"`
+		Port string `yaml:"port"`
+	} `yaml:"http"`
+
+	Kubernetes struct {
+		APIServer struct {
+			Host string `yaml:"host"`
+			Port string `yaml:"port"`
+		} `yaml:"api_server"`
+	} `yaml:"kubernetes"`
 
 	Postgres struct {
-		Host     string `json:"host"`
-		Port     string `json:"port"`
-		User     string `json:"user"`
-		Password string `json:"password"`
-		Database string `json:"database"`
-	} `json:"postgres"`
+		Host     string `yaml:"host"`
+		Port     string `yaml:"port"`
+		User     string `yaml:"user"`
+		Password string `yaml:"password"`
+		Database string `yaml:"database"`
+	} `yaml:"postgres"`
+
+	Reactor struct {
+		ReactTo string `yaml:"react_to"`
+	} `yaml:"reactor"`
 }
 
 type RuntimeEnvironment int

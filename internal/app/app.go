@@ -7,6 +7,7 @@ import (
 	"github.com/yagehu/reactor/internal/controller"
 	"github.com/yagehu/reactor/internal/fx/dbfx"
 	"github.com/yagehu/reactor/internal/fx/httpfx"
+	"github.com/yagehu/reactor/internal/fx/kubernetesfx"
 	"github.com/yagehu/reactor/internal/fx/middlewarefx"
 	"github.com/yagehu/reactor/internal/fx/nowfx"
 	"github.com/yagehu/reactor/internal/fx/uuidfx"
@@ -24,6 +25,7 @@ func New() fx.Option {
 
 		dbfx.Module,
 		httpfx.Module,
+		kubernetesfx.Module,
 		middlewarefx.Module,
 		nowfx.Module,
 		uuidfx.Module,

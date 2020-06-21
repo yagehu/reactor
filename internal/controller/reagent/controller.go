@@ -17,6 +17,9 @@ type Controller interface {
 	GetAllReagents(
 		context.Context, *GetAllReagentsParams,
 	) (*GetAllReagentsResult, error)
+	GetReagentByGUID(
+		context.Context, *GetReagentByGUIDParams,
+	) (*GetReagentByGUIDResult, error)
 }
 
 type Params struct {
