@@ -1,3 +1,10 @@
 http:
   host: localhost
   port: "8080"
+
+postgres:
+  host: localhost
+  port: "5432"
+  user: reactor
+  password: reactor
+  database: reactor
