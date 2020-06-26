@@ -36,7 +36,12 @@ type Config struct {
 	} `yaml:"postgres"`
 
 	Reactor struct {
-		ReactTo string `yaml:"react_to"`
+		ReactTo   string `yaml:"react_to"`
+		Namespace string `yaml:"namespace"`
+		Product   struct {
+			Name  string `yaml:"name"`
+			Image string `yaml:"image"`
+		} `yaml:"product"`
 	} `yaml:"reactor"`
 }
 

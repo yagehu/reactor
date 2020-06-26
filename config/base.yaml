@@ -16,3 +16,7 @@ postgres:
 
 reactor:
   react_to: ua-server
+  namespace: default
+  product:
+    name: ua-client
+    image: middleware_client:1.5

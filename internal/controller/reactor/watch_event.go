@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/gofrs/uuid"
+	"go.uber.org/zap"
 
 	reagentcontroller "github.com/yagehu/reactor/internal/controller/reagent"
 	"github.com/yagehu/reactor/internal/entity"
@@ -49,6 +50,7 @@ func (c *controller) WatchEvent(
 				&reagentcontroller.CreateReagentParams{GUID: guid},
 			)
 			if err != nil {
+				c.logger.Error("Could not create reagent.", zap.Error(err))
 				continue
 			}
 
