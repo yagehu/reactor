@@ -3,10 +3,9 @@ package reactor
 import (
 	"context"
 
-	"github.com/gofrs/uuid"
-	"go.uber.org/zap"
+	"golang.org/x/sync/errgroup"
 
-	reagentcontroller "github.com/yagehu/reactor/internal/controller/reagent"
+	servicecontroller "github.com/yagehu/reactor/internal/controller/service"
 	"github.com/yagehu/reactor/internal/entity"
 	"github.com/yagehu/reactor/internal/errs"
 )
@@ -21,45 +20,31 @@ type WatchEventResult struct {
 func (c *controller) WatchEvent(
 	ctx context.Context, p *WatchEventParams,
 ) (*WatchEventResult, error) {
-	var reagents []entity.Reagent
+	var (
+		op       errs.Op = "controller/reactor.WatchEvent"
+		reagents []entity.Reagent
+	)
 
-	for _, service := range p.Services {
-		if _, ok := service.Tags[c.config.Reactor.ReactTo]; !ok {
-			continue
-		}
+	eg, ectx := errgroup.WithContext(ctx)
 
-		guid, err := uuid.FromString(service.Name)
-		if err != nil {
-			continue
-		}
-
-		var reagent entity.Reagent
-
-		res, err := c.reagentController.GetReagentByGUID(
-			ctx,
-			&reagentcontroller.GetReagentByGUIDParams{GUID: guid},
+	eg.Go(func() error {
+		res, err := c.serviceController.ProcessServices(
+			ectx,
+			&servicecontroller.ProcessServicesParams{
+				Services: p.Services,
+			},
 		)
 		if err != nil {
-			e, ok := err.(*errs.Error)
-			if !ok || e.Kind != errs.KindReagentNotFound {
-				continue
-			}
-
-			res, err := c.reagentController.CreateReagent(
-				ctx,
-				&reagentcontroller.CreateReagentParams{GUID: guid},
-			)
-			if err != nil {
-				c.logger.Error("Could not create reagent.", zap.Error(err))
-				continue
-			}
-
-			reagent = res.Reagent
-		} else {
-			reagent = res.Reagent
+			return err
 		}
 
-		reagents = append(reagents, reagent)
+		reagents = res.Reagents
+
+		return nil
+	})
+
+	if err := eg.Wait(); err != nil {
+		return nil, errs.E(op, err)
 	}
 
 	return &WatchEventResult{}, nil

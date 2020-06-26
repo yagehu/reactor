@@ -1,19 +1,22 @@
-package reactor
+package service
 
 import (
 	"context"
 
-	"github.com/gofrs/uuid"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 
 	"github.com/yagehu/reactor/config"
 	reagentcontroller "github.com/yagehu/reactor/internal/controller/reagent"
-	servicecontroller "github.com/yagehu/reactor/internal/controller/service"
 )
 
 type Controller interface {
-	WatchEvent(context.Context, *WatchEventParams) (*WatchEventResult, error)
+	ProcessService(
+		context.Context, *ProcessServiceParams,
+	) (*ProcessServiceResult, error)
+	ProcessServices(
+		context.Context, *ProcessServicesParams,
+	) (*ProcessServicesResult, error)
 }
 
 type Params struct {
@@ -21,25 +24,19 @@ type Params struct {
 
 	Config            config.Config
 	Logger            *zap.Logger
-	UUIDGenerator     uuid.Generator
 	ReagentController reagentcontroller.Controller
-	ServiceController servicecontroller.Controller
 }
 
 func New(p Params) (Controller, error) {
 	return &controller{
 		config:            p.Config,
 		logger:            p.Logger,
-		uuidGenerator:     p.UUIDGenerator,
 		reagentController: p.ReagentController,
-		serviceController: p.ServiceController,
 	}, nil
 }
 
 type controller struct {
 	config            config.Config
 	logger            *zap.Logger
-	uuidGenerator     uuid.Generator
 	reagentController reagentcontroller.Controller
-	serviceController servicecontroller.Controller
 }
