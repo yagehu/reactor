@@ -11,6 +11,9 @@ type Gateway interface {
 	CreateDeployment(
 		context.Context, *CreateDeploymentParams,
 	) (*CreateDeploymentResult, error)
+	DeleteDeployment(
+		context.Context, *DeleteDeploymentParams,
+	) (*DeleteDeploymentResult, error)
 }
 
 type Params struct {

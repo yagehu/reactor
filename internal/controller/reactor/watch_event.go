@@ -5,6 +5,7 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
+	reagentcontroller "github.com/yagehu/reactor/internal/controller/reagent"
 	servicecontroller "github.com/yagehu/reactor/internal/controller/service"
 	"github.com/yagehu/reactor/internal/entity"
 	"github.com/yagehu/reactor/internal/errs"
@@ -21,8 +22,9 @@ func (c *controller) WatchEvent(
 	ctx context.Context, p *WatchEventParams,
 ) (*WatchEventResult, error) {
 	var (
-		op       errs.Op = "controller/reactor.WatchEvent"
-		reagents []entity.Reagent
+		op             errs.Op = "controller/reactor.WatchEvent"
+		activeReagents []entity.Reagent
+		reagents       []entity.Reagent
 	)
 
 	eg, ectx := errgroup.WithContext(ctx)
@@ -42,8 +44,31 @@ func (c *controller) WatchEvent(
 
 		return nil
 	})
+	eg.Go(func() error {
+		res, err := c.reagentController.GetAllReagents(
+			ectx, &reagentcontroller.GetAllReagentsParams{},
+		)
+		if err != nil {
+			return err
+		}
+
+		activeReagents = res.Reagents
+
+		return nil
+	})
 
 	if err := eg.Wait(); err != nil {
+		return nil, errs.E(op, err)
+	}
+
+	_, err := c.reagentController.Reconcile(
+		ctx,
+		&reagentcontroller.ReconcileParams{
+			NewReagents:    reagents,
+			ActiveReagents: activeReagents,
+		},
+	)
+	if err != nil {
 		return nil, errs.E(op, err)
 	}
 

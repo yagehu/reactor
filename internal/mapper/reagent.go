@@ -18,7 +18,9 @@ func FromReagentModel(x model.Reagent) (entity.Reagent, error) {
 		return entity.Reagent{}, err
 	}
 
-	return entity.NewReagent(id, guid, x.CreatedAt, x.DeletedAt), nil
+	return entity.NewReagent(
+		entity.NewReagentID(id), guid, x.CreatedAt, x.DeletedAt,
+	), nil
 }
 
 func FromReagentModelList(xs []model.Reagent) ([]entity.Reagent, error) {

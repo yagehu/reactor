@@ -44,6 +44,7 @@ func (c *controller) ProcessServices(
 				}
 
 				c.logger.Error("Could not process service.", zap.Error(err))
+
 				return
 			}
 
@@ -55,5 +56,7 @@ func (c *controller) ProcessServices(
 
 	wg.Wait()
 
-	return &ProcessServicesResult{}, nil
+	return &ProcessServicesResult{
+		Reagents: reagents,
+	}, nil
 }

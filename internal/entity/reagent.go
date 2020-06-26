@@ -7,14 +7,14 @@ import (
 )
 
 type Reagent struct {
-	ID        uuid.UUID
+	ID        ReagentID
 	GUID      uuid.UUID
 	CreatedAt time.Time
 	DeletedAt *time.Time
 }
 
 func NewReagent(
-	id, guid uuid.UUID, createdAt time.Time, deletedAt *time.Time,
+	id ReagentID, guid uuid.UUID, createdAt time.Time, deletedAt *time.Time,
 ) Reagent {
 	return Reagent{
 		ID:        id,
