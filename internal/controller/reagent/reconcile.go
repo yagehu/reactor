@@ -42,7 +42,9 @@ func (c *controller) Reconcile(
 		go func(reagent entity.Reagent) {
 			defer wg.Done()
 
-			_, err := c.DeleteReagent(ctx, &DeleteReagentParams{Reagent: reagent})
+			_, err := c.DeleteReagent(
+				ctx, &DeleteReagentParams{Reagent: reagent},
+			)
 			if err != nil {
 				c.logger.Error("Could not delete reagent.", zap.Error(err))
 			}
