@@ -23,7 +23,6 @@ db-up:
 		--host=localhost \
 		--port=$(POSTGRES_PORT) \
 		--username=$(POSTGRES_USER) \
-		> /dev/null 2>&1 \
 	; do \
 		sleep 1; \
 	done
