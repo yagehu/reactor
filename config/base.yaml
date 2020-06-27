@@ -19,4 +19,4 @@ reactor:
   namespace: default
   product:
     name: ua-client
-    image: middleware_client:1.5
+    image: registry.cn-hangzhou.aliyuncs.com/scut-cpps/middleware_client:1.5
