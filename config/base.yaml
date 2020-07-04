@@ -5,7 +5,7 @@ http:
 kubernetes:
   api_server:
     host: localhost
-    port: "9000"
+    port: "8001"
 
 postgres:
   host: localhost
