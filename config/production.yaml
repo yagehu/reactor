@@ -1,0 +1,2 @@
+postgres:
+  host: reactor-db-postgresql
